@@ -1,18 +1,62 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React, { Component } from "react";
+import "./App.css";
+import Person from "./Person/Person";
 class App extends Component {
+  state = {
+    persons: [
+      { name: "Victor", age: 21 },
+      { name: "Vinicius", age: 22 },
+      { name: "Ana Clara", age: 21 }
+    ]
+  };
+  switchNameHandler = newName => {
+    this.setState({
+      persons: [
+        { name: newName, age: 21 },
+        { name: "Vinicius", age: 22 },
+        { name: "Ana Clara", age: 21 }
+      ]
+    });
+  };
+  nameChangedHandler = event => {
+    this.setState({
+      persons: [
+        { name: "Victor de Morais", age: 21 },
+        { name: event.target.value, age: 22 },
+        { name: "Ana Clara", age: 21 }
+      ]
+    });
+  };
   render() {
+    const style = {
+      backgroundColor: "white",
+      font: "intherit",
+      border: "1px solid blue",
+      padding: "8px",
+      cursor: "pointer"
+    };
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1> Hi, I'm a React App</h1>
+        <button style={style} onClick={() => this.switchNameHandler("victor")}>
+          Switch name
+        </button>
+        <Person
+          name={this.state.persons[0].name}
+          age={this.state.persons[0].age}
+        >
+          Teste
+        </Person>
+        <Person
+          name={this.state.persons[1].name}
+          age={this.state.persons[1].age}
+          click={this.switchNameHandler.bind(this, "Maximilian!")}
+          changed={this.nameChangedHandler}
+        />
+        <Person
+          name={this.state.persons[2].name}
+          age={this.state.persons[2].age}
+        />
       </div>
     );
   }
